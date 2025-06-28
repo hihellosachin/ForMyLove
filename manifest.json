@@ -1,9 +1,8 @@
 {
   "name": "For My Love 💖",
-  "short_name": "LoveSite",
-  "start_url": ".",
+  "short_name": "Love 💖",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff0f5",
-  "theme_color": "#ff69b4",
-  "gcm_sender_id": "482941778795"
+  "gcm_sender_id": "482941778795",
+  "gcm_user_visible_only": true
 }
