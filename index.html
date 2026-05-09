@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>For My Love 💖</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+
+  <script>
+    window.OneSignal = window.OneSignal || [];
+
+    OneSignal.push(function() {
+
+      OneSignal.init({
+        appId: "54557ce9-be5b-4c45-8c90-a91c2e4de4cf",
+
+        safari_web_id:
+          "web.onesignal.auto.365cbfbd-b203-4342-b6f2-394fa1a1712a",
+
+        notifyButton: {
+          enable: true,
+        },
+
+        allowLocalhostAsSecureOrigin: true
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <!-- ENTRY SCREEN -->
+
+  <div class="center" id="entry-screen">
+
+    <h1 class="main-title">
+      Do you love me?
+    </h1>
+
+    <p class="upload-text">
+      Before we begin, upload a cute selfie so I can see your beautiful face every time the page loads 💖
+    </p>
+
+    <div>
+
+      <button
+        class="btn yes-btn"
+        onclick="enterSite()"
+        id="yes-btn">
+
+        Yes 💖
+
+      </button>
+
+      <button
+        class="btn no-btn"
+        id="no-btn">
+
+        No 🙄
+
+      </button>
+
+    </div>
+
+    <label
+      for="selfie-upload"
+      class="btn upload-btn">
+
+      Upload Selfie 📷
+
+    </label>
+
+    <input
+      type="file"
+      accept="image/*"
+      capture="user"
+      id="selfie-upload"
+      hidden
+    />
+
+  </div>
+
+  <!-- MAIN WEBSITE -->
+
+  <div class="hidden" id="main-site">
+
+    <!-- COUNTDOWN -->
+
+    <div
+      class="live-countdown"
+      id="live-timer">
+    </div>
+
+    <div class="main-content">
+
+      <h2 class="welcome-title">
+        Hi Love! 💌
+      </h2>
+
+      <div
+        class="message"
+        id="daily-message">
+      </div>
+
+      <!-- DAILY SURPRISE -->
+
+      <div class="dropdown-container">
+
+        <button
+          class="dropdown-btn"
+          onclick="toggleDropdown()">
+
+          Open Daily Surprises ⬇️
+
+        </button>
+
+        <div
+          class="day-grid"
+          id="day-grid">
+        </div>
+
+      </div>
+
+      <!-- SHARED MEMORIES SECTION -->
+
+      <section id="memory-section">
+
+        <h2 class="memory-title">
+          Shared Memories ❤️
+        </h2>
+
+        <label class="memory-upload-btn">
+
+          Upload Memory 📸
+
+          <input
+            type="file"
+            id="memory-upload"
+            hidden
+            accept="image/*"
+          />
+
+        </label>
+
+        <div id="memory-feed"></div>
+
+      </section>
+
+    </div>
+
+    <!-- BOTTOM PHOTO MESSAGE -->
+
+    <div class="bottom-photo-box">
+
+      <div
+        class="decorated-photo"
+        id="decorated-photo">
+      </div>
+
+      <div class="cute-message-box">
+
+        Just when I think you can’t get any cuter,
+        you prove me wrong again 😘🎀
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+
+  <script
+    type="module"
+    src="script.js">
+  </script>
+
+</body>
+</html>
