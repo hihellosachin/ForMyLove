@@ -2,6 +2,7 @@ name: Send Daily Birthday Push Notification
 
 on:
   schedule:
+    # Runs at 03:30 UTC (9:00 AM IST) and 14:30 UTC (8:00 PM IST) every day
     - cron: '30 3,14 * * *'
   workflow_dispatch:
 
@@ -18,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install firebase-admin @google-generative-ai/server
+        run: npm install firebase-admin @google/genai
 
       - name: Run Send Notification Script
         env:
