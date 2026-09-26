@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
-const { GoogleGenerativeAI } = require('@google-generative-ai/server');
+const { GoogleGenAI } = require('@google/genai');
 
-// Initialize Firebase Admin SDK
+// Initialize Firebase Admin SDK using GitHub secret
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -12,13 +12,13 @@ const messaging = admin.messaging();
 
 async function generateCuteMessage(daysLeft) {
   try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `Write a short, romantic, single-sentence notification message for my girlfriend adoring her. There are ${daysLeft} days left until her birthday on October 14th. Keep it sweet, loving, and under 15 words with a couple of cute emojis.`,
+    });
 
-    const prompt = `Write a short, romantic, single-sentence notification message for my girlfriend adoring her. There are ${daysLeft} days left until her birthday on October 14th. Keep it sweet, loving, and under 15 words with a couple of cute emojis.`;
-
-    const result = await model.generateContent(prompt);
-    return result.response.text().trim();
+    return response.text.trim();
   } catch (err) {
     console.error("Failed to generate AI message, using fallback:", err);
     return "You make my world brighter every single day! 💖";
@@ -36,11 +36,10 @@ async function run() {
   const diffTime = birthday - today;
   const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  // Get her FCM Token from Firestore
+  // Get recipient FCM Token from Firestore
   const tokenDoc = await db.collection("fcmTokens").doc("girlfriend").get();
   if (!tokenDoc.exists) {
-    console.error("No FCM token found in Firestore!");
-    return;
+    throw new Error("No token found in Firestore! Please open the site on your phone, upload a selfie, and grant notification permissions first.");
   }
 
   const fcmToken = tokenDoc.data().token;
@@ -58,4 +57,7 @@ async function run() {
   console.log("Successfully sent notification!");
 }
 
-run().catch(console.error);
+run().catch((err) => {
+  console.error("Error running notification script:", err);
+  process.exit(1);
+});
